@@ -38,20 +38,15 @@ $startBtn.addEventListener("click", startQuestions);
 
 
 function startQuestions() {
-	  //hide the start prompt
+
   $startPrompt.classList.add("hide");
-  //show our question
   $questionPrompt.classList.remove("hide");
-  
-  	//update the content with current question
   	$questionText.textContent = questions[0].text;
-  	//render options
  	 questions[0].options.forEach(function (item) {
     var $btn = document.createElement("button");
     $btn.textContent = item;
     options.addEventListener("click", answers)
     $questionOptions.append($btn);
-    //display our timer
     startTime();
   });
 }
