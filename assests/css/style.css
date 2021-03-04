@@ -1,0 +1,20 @@
+*{
+    text-align:center;
+    background-color: #898C93;
+    color:#F609A0;
+}
+.hide{
+    display:none;
+}
+button{
+    background-color: #fff;
+}
+#timer{
+    position:fixed;
+    padding:10px;
+    top:0;
+    right:0;
+}
+.text-center{
+    text-align:center;
+}
