@@ -26,7 +26,7 @@ THEN I can save my initials and my score
 ```
 
 ## Screenshot
-![Image of my website]()
+![Image of my website](https://github.com/ScottLRay/quiz-in-js/blob/main/assests/images/2021-03-04%20(2).png)
 
 
 
