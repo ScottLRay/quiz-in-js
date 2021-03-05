@@ -20,9 +20,9 @@ var secondsLeft = 100;
 var timerInterval;
 var currentQuestion = 0;
 var score = 0;
-score = +secondsLeft;
+score = secondsLeft;
 var scoreText = [];
-var storage = window.localStorage;
+
 
 // i need questions for the quiz
 var questions = [
@@ -98,7 +98,7 @@ function endGame() {
     alert("You lost the game!");
   }
   $score.classList.remove("hide");
-  highScore();
+  saveHighScore();
 }
 
 function startTime() {
@@ -107,10 +107,32 @@ function startTime() {
     $timer.textContent = secondsLeft + " seconds left";
   }, 1000);
 }
-
-function highScore() {
-  $sBtn.addEventListener("click", function () {
-     localStorage.setItem(scoreText);
+function saveHighScore() {
+  // Save related form data as an object
+  var userName = {
+    userName: userName.value,
+    score: score.value,
+    
+  };
+  // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
+  localStorage.setItem("highscore", JSON.stringify(userName));
+}
+function renderHighScore() {
+  // Use JSON.parse() to convert text to JavaScript object
+  var lastScore = JSON.parse(localStorage.getItem("highScore"));
+  // Check if data is returned, if not exit out of the function
+  if (lastScore !== null) {
+  document.getElementById("saved-uname").innerHTML = lastScore.userName;
+  document.getElementById("saved-score").innerHTML = lastScore.score;
+  
+  } else {
+    return;
+  }
+}
+  $sBtn.addEventListener("click", function (e) {
+     e.preventDefault();
+     saveHighScore();
+     renderHighScore();
   });
  
-}
+
