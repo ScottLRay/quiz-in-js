@@ -1,14 +1,28 @@
+// the start prompt
 var $startPrompt = document.querySelector("#start-prompt");
+// the start button
 var $startBtn = document.querySelector("#start-prompt button");
+// the question prompt
 var $questionPrompt = document.querySelector("#question-prompt");
+// the questions
 var $questionText = document.querySelector("#question-text");
+// the options for the questions
 var $questionOptions = document.querySelector("#options");
+// the timer
 var $timer = document.querySelector("#timer");
+// the score
+var $score = document.querySelector("#score");
+// button to submit name
+var $sBtn = document.querySelector("#sbutton");
 
-
-var secondsLeft = 10;
-
-
+// different varablies that i need for the functions
+var secondsLeft = 100;
+var timerInterval;
+var currentQuestion = 0;
+var score = 0;
+score = +secondsLeft;
+var scoreText = [];
+var storage = window.localStorage;
 
 // i need questions for the quiz
 var questions = [
@@ -29,44 +43,74 @@ var questions = [
   },
   {
     text: "Are you awesome?",
-    options: ["true", "False"],
+    options: ["True", "False"],
     correctAnswer: "True",
   },
 ];
 
 $startBtn.addEventListener("click", startQuestions);
-
-
 function startQuestions() {
-
   $startPrompt.classList.add("hide");
   $questionPrompt.classList.remove("hide");
-  	$questionText.textContent = questions[0].text;
- 	 questions[0].options.forEach(function (item) {
+
+  renderQuestion();
+}
+
+function renderQuestion() {
+  $questionOptions.innerHTML = "";
+  $questionText.textContent = questions[currentQuestion].text;
+  questions[currentQuestion].options.forEach(function (item) {
     var $btn = document.createElement("button");
     $btn.textContent = item;
-    options.addEventListener("click", answers)
+    options.addEventListener("click", answers);
     $questionOptions.append($btn);
     startTime();
   });
 }
 
-function answers(e){
-  $questionOptions = e.target;
-  if ($questionOptions.textContent === questions[0].correctAnswer){
-    console.log("it worked")
+function answers(e) {
+  var val = e.target.textContent;
+  if (val === questions[currentQuestion].correctAnswer) {
+    // What do we want to do if the answer was correct
+    
+    clearInterval(timerInterval);
+  } else if (val !== questions[currentQuestion].correctAnswer) {
+    // What do we want to do if the answer was wrong
+    
   }
+  currentQuestion++;
+  if (questions.length === currentQuestion) {
+    // If this code fires, it means we are out of questions
 
+    $questionPrompt.classList.add("hide");
+    alert("You won the game!");
+    endGame();
+  } else {
+    // We have more questions
+    renderQuestion();
+  }
+}
+
+// End Game
+function endGame() {
+  if (secondsLeft === 0) {
+    
+    alert("You lost the game!");
+  }
+  $score.classList.remove("hide");
+  highScore();
 }
 
 function startTime() {
-  var timerInterval = setInterval(function () {
+  timerInterval = setInterval(function () {
     secondsLeft--;
-    $timer.textContent = secondsLeft;
-
-    if (secondsLeft === 0) {
-      clearInterval(timerInterval);
-    }
+    $timer.textContent = secondsLeft + " seconds left";
   }, 1000);
 }
 
+function highScore() {
+  $sBtn.addEventListener("click", function () {
+     localStorage.setItem(scoreText);
+  });
+ 
+}

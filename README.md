@@ -24,3 +24,11 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score
 ```
+
+## Screenshot
+![Image of my website]()
+
+
+
+## github pages link
+https://scottlray.github.io/quiz-in-js/index.html
